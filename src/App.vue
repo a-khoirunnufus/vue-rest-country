@@ -1,17 +1,15 @@
 <template>
   <Navbar />
-  <Content />
+  <router-view />
 </template>
 
 <script>
 import Navbar from './components/Navbar.vue'
-import Content from './components/Content.vue'
 
 export default {
   name: 'App',
   components: {
-    Navbar,
-    Content
+    Navbar
   }
 }
 </script>
@@ -47,5 +45,8 @@ $very-dark-blue: hsl(200, 15%, 8%);
   &.round {
     border-radius: 5px;
   }
+}
+.btn {
+  padding: .5rem 1.5rem;
 }
 </style>

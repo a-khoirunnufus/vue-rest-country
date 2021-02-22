@@ -12,22 +12,26 @@
       </select>
     </form>
     <div class="card-wrapper">
-      <div class="card round card-country">
-        <img class="img-flag" src="../assets/logo.svg" alt="flag">
-        <div class="wrapper">
-          <h3 class="country-name">United States of America</h3>
-          <p><strong>Population:</strong> 200.200.900</p>
-          <p><strong>Region:</strong> Americas</p>
-          <p><strong>Capital:</strong> Brasilia</p>
-        </div>
-      </div>
+      <CountryCard />
+      <CountryCard />
+      <CountryCard />
+      <CountryCard />
+      <CountryCard />
+      <CountryCard />
+      <CountryCard />
+      <CountryCard />
     </div>
   </div>
 </template>
 
 <script>
+import CountryCard from './molecules/CountryCard.vue'
+
 export default {
-  name: 'Content'
+  name: 'Main',
+  components: {
+    CountryCard
+  }
 }
 </script>
 
@@ -57,23 +61,10 @@ select {
 #filter-placeholder{
   display: none;
 }
-.card-country {
-  display: inline-flex;
-  flex-direction: column;
-  min-height: 166*2px;
-  .img-flag {
-    width: 250px;
-    border-radius: 5px 5px 0 0;
-  }
-  .wrapper {
-    padding: 1.75rem 1.5rem;
-    .country-name {
-      margin-bottom: 1rem;
-    }
-    p {
-      margin-bottom: .25rem;
-    }
-  }
+.card-wrapper {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 4rem;
+  margin-bottom: 2rem;
 }
-
 </style>
