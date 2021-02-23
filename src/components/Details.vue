@@ -1,29 +1,27 @@
 <template>
-  <div class="container detail-wrapper">
-    <button class="btn card round">← Back</button>
+  <div class="container detail-wrapper" v-if="country">
+    <router-link to="/"><button class="btn card round">← Back</button></router-link>
     <div class="detail-content">
-      <img class="flag-img" src="../assets/logo.svg" alt="flag">
+      <img class="flag-img" :src="country.flag" alt="flag">
       <div class="detail-text">
-        <h1>Indonesia</h1>
+        <h1>{{ country.name }}</h1>
         <div class="wrapper">
           <div>
-            <p><strong>Native Name:</strong> Indonesia</p>
-            <p><strong>Population:</strong> 200.200.900</p>
-            <p><strong>Region:</strong> Asia</p>
-            <p><strong>Sub Region:</strong> Southeast Asia</p>
-            <p><strong>Capital:</strong> Jakarta</p>
+            <p><strong>Native Name:</strong> {{ country.nativeName }}</p>
+            <p><strong>Population:</strong> {{ country.population }}</p>
+            <p><strong>Region:</strong> {{ country.region }}</p>
+            <p><strong>Sub Region:</strong> {{ country.subregion }}</p>
+            <p><strong>Capital:</strong> {{ country.capital }}</p>
           </div>
           <div>
-            <p><strong>Top Level Domain:</strong> .id</p>
-            <p><strong>Currencies:</strong> Indonesian Rupiah</p>
-            <p><strong>Languages:</strong> Bahasa Indonesia</p>
+            <p><strong>Top Level Domain:</strong> {{ country.topLevelDomain.toString() }}</p>
+            <p><strong>Currencies:</strong> {{ country.currencies.map(item => item.name).toString() }}</p>
+            <p><strong>Languages:</strong> {{ country.languages.map(item => item.name).toString() }}</p>
           </div>
         </div>
         <div class="border">
           <p><strong>Border Countries:</strong></p>
-          <span class="tag card">Malaysia</span>
-          <span class="tag card">Singapura</span>
-          <span class="tag card">Timor Leste</span>
+          <span class="tag card" v-for="(border, index) in country.borders" :key="index">{{ border }}</span>
         </div>
       </div>
     </div>
@@ -32,7 +30,41 @@
 
 <script>
 export default {
-  name: 'Details'
+  name: 'Details',
+  data() {
+    return {
+      country: null
+    }
+  },
+  beforeRouteEnter (to, from, next) {
+    fetch(`https://restcountries.eu/rest/v2/alpha/${to.params.id}`)
+      .then(res => res.json())
+      .then(country => {
+      //   country tag should display full name
+      //   const editedCountry = country
+      //   const borders = country.borders
+      //   let bordersName = []
+      //   console.log('1')
+      //   borders.forEach( async (item) => {
+      //     await fetch(`https://restcountries.eu/rest/v2/alpha/${item}`)
+      //       .then(res => res.json())
+      //       .then(res => {
+      //         console.log('2')
+      //         bordersName.push(res.name)
+      //       })
+      //       .catch(err => console.error(err))
+      //   })
+      //   console.log('3')
+      //   editedCountry['bordersName'] = bordersName
+      //   console.log('edited country',editedCountry)
+      //   return editedCountry
+      // })
+      // .then(country => {
+        console.log('selected country', country)
+        next(vm => vm.country = country)
+      })
+      .catch(err => console.error(err))
+  }
 }
 </script>
 
@@ -43,6 +75,7 @@ export default {
 button {
   margin: 2rem 0;
   background-color: #fff;
+  cursor: pointer;
 }
 .detail-content {
   display: grid;

@@ -1,4 +1,5 @@
 <template>
+  <router-link :to="{ name: 'country', params: { id: country.alpha3Code }}">
   <div class="card round card-country">
     <img class="img-flag" :src="country.flag" alt="flag">
     <div class="wrapper">
@@ -8,6 +9,7 @@
       <p><strong>Capital:</strong> {{ country.capital }}</p>
     </div>
   </div>
+  </router-link>
 </template>
 
 <script>
@@ -27,6 +29,7 @@ export default {
   .img-flag {
     border: none;
     width: 100%;
+    max-height: 178px;
     background-size: cover;
     border-radius: 5px 5px 0 0;
   }

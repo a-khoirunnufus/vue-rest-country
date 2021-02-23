@@ -35,6 +35,11 @@ $very-dark-blue: hsl(200, 15%, 8%);
   min-height: 100vh;
 }
 
+a {
+  text-decoration: none;
+  color: $very-dark-blue;
+}
+
 .container {
   width: 90vw;
   margin: 0 auto;
