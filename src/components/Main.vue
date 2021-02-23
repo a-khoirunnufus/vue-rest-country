@@ -1,7 +1,7 @@
 <template>
   <div class="container" v-if="displayCountry">
-    <form>
-      <input class="card round" type="text" id="country-input" name="country-name" placeholder="Search for a country..">
+    <form v-on:submit.prevent="searchCountry">
+      <input v-model="inputText" class="card round" type="text" id="country-input" name="country-name" placeholder="Search for a country..">
       <select class="card round" name="filter" id="filter-input" v-model="selected">
         <option id="filter-placeholder" value="" disabled>Filter by Region</option>
         <option>Africa</option>
@@ -29,7 +29,8 @@ export default {
   data() {
     return {
       displayCountry: ref(null),
-      selected: ''
+      selected: '',
+      inputText: ''
     }
   },
   watch: {
@@ -87,6 +88,15 @@ export default {
           console.log('region not found')
       }
     },
+    searchCountry() {
+      fetch(`https://restcountries.eu/rest/v2/name/${this.inputText}`)
+        .then(res => res.json())
+        .then(res => {
+          console.log('search result', res)
+          this.displayCountry = res
+        })
+        .catch(err => console.log(err))
+    }
   }
 }
 </script>
