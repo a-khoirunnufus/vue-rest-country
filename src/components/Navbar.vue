@@ -14,7 +14,6 @@ export default {
 
 <style lang="scss" scoped>
 nav {
-
 }
 .nav-wrapper {
   padding: 1.5rem 0;

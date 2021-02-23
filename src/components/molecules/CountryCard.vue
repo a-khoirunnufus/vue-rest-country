@@ -29,7 +29,7 @@ export default {
   .img-flag {
     border: none;
     width: 100%;
-    max-height: 178px;
+    max-height: 166px;
     background-size: cover;
     border-radius: 5px 5px 0 0;
   }
@@ -43,4 +43,5 @@ export default {
     }
   }
 }
+
 </style>

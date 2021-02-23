@@ -100,15 +100,37 @@ button {
       }
     }
     .border {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
       & > * {
-        display: inline;
+        display: block;
+        margin: .25rem .25rem;
       }
       p {
         margin-right: .75rem;
       }
       .tag {
         padding: .25rem 1rem;
-        margin: 0 .25rem;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 375px) {
+  .detail-content {
+    grid-template-columns: 1fr;
+    grid-gap: 3rem;
+    .detail-text {
+      .wrapper {
+        margin-bottom: 2rem;
+        flex-direction: column;
+        div:first-child {
+          margin-bottom: 2rem;
+        }
+      }
+      .border {
+        margin-bottom: 5rem;
       }
     }
   }

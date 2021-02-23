@@ -103,7 +103,7 @@ export default {
 
 <style lang="scss" scoped>
 #country-input {
-  width: 400px;
+  max-width: 400px;
   margin: 2rem 0;
   padding: 1rem;
   padding-left: 4rem;
@@ -132,5 +132,20 @@ select {
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 4rem;
   margin-bottom: 2rem;
+  justify-items: center;
+}
+
+@media only screen and (max-width: 375px) {
+  form {
+    flex-direction: column;
+    select {
+      margin-top: 0;
+    }
+  }
+  .card-wrapper {
+    grid-template-columns: 1fr;
+    grid-gap: 2rem;
+
+  }
 }
 </style>
