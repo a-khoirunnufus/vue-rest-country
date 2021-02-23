@@ -1,36 +1,92 @@
 <template>
-  <div class="container">
+  <div class="container" v-if="displayCountry">
     <form>
       <input class="card round" type="text" id="country-input" name="country-name" placeholder="Search for a country..">
-      <select class="card round" name="filter" id="filter-input">
-        <option id="filter-placeholder" value="" disabled selected>Filter by Region</option>
-        <option value="africa">Africa</option>
-        <option value="america">America</option>
-        <option value="asia">Asia</option>
-        <option value="europe">Europe</option>
-        <option value="oceania">Oceania</option>
+      <select class="card round" name="filter" id="filter-input" v-model="selected">
+        <option id="filter-placeholder" value="" disabled>Filter by Region</option>
+        <option>Africa</option>
+        <option>America</option>
+        <option>Asia</option>
+        <option>Europe</option>
+        <option>Oceania</option>
       </select>
     </form>
     <div class="card-wrapper">
-      <CountryCard />
-      <CountryCard />
-      <CountryCard />
-      <CountryCard />
-      <CountryCard />
-      <CountryCard />
-      <CountryCard />
-      <CountryCard />
+      <CountryCard v-for="(country, index) in displayCountry" :country="country" :key="index"/>
     </div>
   </div>
 </template>
 
 <script>
+import { ref } from 'vue'
 import CountryCard from './molecules/CountryCard.vue'
 
 export default {
   name: 'Main',
   components: {
     CountryCard
+  },
+  data() {
+    return {
+      displayCountry: ref(null),
+      selected: ''
+    }
+  },
+  watch: {
+    selected(val) {
+      this.setRegion(val)
+    }
+  },
+  mounted() {
+    // fetch data for first time
+    this.fetchFromAPI()
+      .then(res => {
+        if(res) this.displayCountry = this.$store.getters.getMainCountry
+      })
+      .catch(err => console.error(err));
+  },
+  methods: {
+    fetchFromAPI() {
+      return new Promise((resolve, reject) => {
+        fetch('https://restcountries.eu/rest/v2/all')
+          .then(res => res.json())
+          .then(countries => {
+            console.log('hasil fetch',countries)
+            this.$store.dispatch('setAllCountries', countries)
+            resolve(true)
+          })
+          .catch(err => {
+            reject(err)
+          })
+      })
+    },
+    setRegion(region) {
+      console.log('filter click')
+      switch(region) {
+        case 'Africa':
+          console.log('set to Africa region')
+          this.displayCountry = this.$store.getters.getAfricaCountry
+          break
+        case 'America':
+          console.log('set to America region')
+          this.displayCountry = this.$store.getters.getAmericaCountry
+          break
+        case 'Asia':
+          console.log('set to Asia region')
+          this.displayCountry = this.$store.getters.getAsiaCountry
+          break
+        case 'Europe':
+          console.log('set to Europe region')
+          this.displayCountry = this.$store.getters.getEuropeCountry
+          break
+        case 'Oceania':
+          console.log('set to Oceania region')
+          this.displayCountry = this.$store.getters.getOceaniaCountry
+          break
+        default:
+          console.log('region not found')
+      }
+    },
   }
 }
 </script>

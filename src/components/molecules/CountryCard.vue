@@ -1,18 +1,21 @@
 <template>
   <div class="card round card-country">
-    <img class="img-flag" src="../../assets/logo.svg" alt="flag">
+    <img class="img-flag" :src="country.flag" alt="flag">
     <div class="wrapper">
-      <h3 class="country-name">United States of America</h3>
-      <p><strong>Population:</strong> 200.200.900</p>
-      <p><strong>Region:</strong> Americas</p>
-      <p><strong>Capital:</strong> Brasilia</p>
+      <h3 class="country-name">{{ country.name }}</h3>
+      <p><strong>Population:</strong> {{ country.population }}</p>
+      <p><strong>Region:</strong> {{ country.region }}</p>
+      <p><strong>Capital:</strong> {{ country.capital }}</p>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'CountryCard'
+  name: 'CountryCard',
+  props: [
+    'country'
+  ]
 }
 </script>
 
@@ -24,6 +27,7 @@ export default {
   .img-flag {
     border: none;
     width: 100%;
+    background-size: cover;
     border-radius: 5px 5px 0 0;
   }
   .wrapper {

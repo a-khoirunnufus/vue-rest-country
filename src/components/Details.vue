@@ -42,6 +42,7 @@ export default {
 }
 button {
   margin: 2rem 0;
+  background-color: #fff;
 }
 .detail-content {
   display: grid;
